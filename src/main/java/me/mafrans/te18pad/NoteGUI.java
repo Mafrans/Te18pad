@@ -8,6 +8,8 @@ import java.awt.*;
 
 @Data
 public class NoteGUI {
+    private JFrame frame;
+
     private JPanel mainPanel;
     private JSpinner seedSpinner;
     private JSlider seedSlider;
@@ -16,7 +18,7 @@ public class NoteGUI {
     private JPanel seedPanel;
 
     private int seed;
-    private int preferredSize;
+    private Dimension preferredSize;
 
     private static int DEFAULT_SEED = 50;
     private static Dimension DEFAULT_PREFERRED_SIZE = new Dimension(800, 600);
@@ -45,7 +47,7 @@ public class NoteGUI {
         });
 
         seedSpinner.addChangeListener((e) -> {
-            setSeed((int) getSeedSlider().getValue());
+            setSeed(getSeedSlider().getValue());
         });
     }
 
@@ -53,5 +55,10 @@ public class NoteGUI {
         seed = value;
         getSeedSlider().setValue(getSeed());
         getSeedSpinner().setValue(getSeed());
+    }
+
+    public void setPreferredSize(Dimension value) {
+        preferredSize = value;
+        frame.setPreferredSize(getPreferredSize());
     }
 }
