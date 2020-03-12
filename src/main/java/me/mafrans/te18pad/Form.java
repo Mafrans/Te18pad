@@ -9,4 +9,12 @@ public class Form {
     private JTextPane textPane;
     private JScrollPane scrollPane;
     private JPanel seedPanel;
+
+    public Form(String title) {
+        JFrame frame = new JFrame(title);
+        frame.setContentPane(mainPanel);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.pack();
+        frame.setVisible(true);
+    }
 }
