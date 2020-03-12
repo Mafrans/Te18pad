@@ -21,7 +21,7 @@ public class NoteGUI {
     private Dimension preferredSize;
 
     private static int DEFAULT_SEED = 50;
-    private static Dimension DEFAULT_PREFERRED_SIZE = new Dimension(800, 600);
+    private static Dimension PREFERRED_SIZE = new Dimension(800, 600);
 
     @SneakyThrows
     public NoteGUI(String title) {
@@ -39,6 +39,7 @@ public class NoteGUI {
 
     private void setDefaultValues() {
         setSeed(DEFAULT_SEED);
+        setPreferredSize(PREFERRED_SIZE);
     }
 
     private void createListeners() {
