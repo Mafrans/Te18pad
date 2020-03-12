@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.SneakyThrows;
 
 import javax.swing.*;
+import java.awt.*;
 
 @Data
 public class NoteGUI {
@@ -14,6 +15,12 @@ public class NoteGUI {
     private JScrollPane scrollPane;
     private JPanel seedPanel;
 
+    private int seed;
+    private int preferredSize;
+
+    private static int DEFAULT_SEED = 50;
+    private static Dimension DEFAULT_PREFERRED_SIZE = new Dimension(800, 600);
+
     @SneakyThrows
     public NoteGUI(String title) {
         UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -23,5 +30,28 @@ public class NoteGUI {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
+
+        setDefaultValues();
+        createListeners();
+    }
+
+    private void setDefaultValues() {
+        setSeed(DEFAULT_SEED);
+    }
+
+    private void createListeners() {
+        seedSlider.addChangeListener((e) -> {
+            setSeed(getSeedSlider().getValue());
+        });
+
+        seedSpinner.addChangeListener((e) -> {
+            setSeed((int) getSeedSlider().getValue());
+        });
+    }
+
+    public void setSeed(int value) {
+        seed = value;
+        getSeedSlider().setValue(getSeed());
+        getSeedSpinner().setValue(getSeed());
     }
 }
