@@ -27,7 +27,7 @@ public class NoteGUI {
     public NoteGUI(String title) {
         UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 
-        JFrame frame = new JFrame(title);
+        frame = new JFrame(title);
         frame.setContentPane(getMainPanel());
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
