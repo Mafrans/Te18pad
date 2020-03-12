@@ -30,10 +30,13 @@ public class NoteGUI {
         frame = new JFrame(title);
         frame.setContentPane(getMainPanel());
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        // Set default values after frame is created but before it is packed
+        setDefaultValues();
+
         frame.pack();
         frame.setVisible(true);
 
-        setDefaultValues();
         createListeners();
     }
 
@@ -48,7 +51,7 @@ public class NoteGUI {
         });
 
         seedSpinner.addChangeListener((e) -> {
-            setSeed(getSeedSlider().getValue());
+            setSeed((int)getSeedSpinner().getValue());
         });
     }
 
