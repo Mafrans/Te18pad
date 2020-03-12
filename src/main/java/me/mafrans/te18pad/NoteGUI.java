@@ -2,7 +2,7 @@ package me.mafrans.te18pad;
 
 import javax.swing.*;
 
-public class Form {
+public class NoteGUI {
     private JPanel mainPanel;
     private JSpinner seedSpinner;
     private JSlider seedSlider;
@@ -10,7 +10,7 @@ public class Form {
     private JScrollPane scrollPane;
     private JPanel seedPanel;
 
-    public Form(String title) {
+    public NoteGUI(String title) {
         JFrame frame = new JFrame(title);
         frame.setContentPane(mainPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
