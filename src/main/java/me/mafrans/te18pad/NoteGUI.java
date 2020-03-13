@@ -59,10 +59,19 @@ public class NoteGUI {
         seed = value;
         getSeedSlider().setValue(getSeed());
         getSeedSpinner().setValue(getSeed());
+
+        ((EncryptedTextPane)textPane).setKey(String.valueOf(seed));
     }
 
     public void setPreferredSize(Dimension value) {
         preferredSize = value;
         frame.setPreferredSize(getPreferredSize());
+    }
+
+    private void createUIComponents() {
+        EncryptedTextPane encryptedTextPane = new EncryptedTextPane();
+        encryptedTextPane.setKey(String.valueOf(seed));
+
+        textPane = encryptedTextPane;
     }
 }

@@ -15,7 +15,7 @@
         <properties/>
         <border type="none"/>
         <children>
-          <component id="b5607" class="javax.swing.JTextPane" binding="textPane">
+          <component id="b5607" class="javax.swing.JTextPane" binding="textPane" custom-create="true">
             <constraints/>
             <properties>
               <font name="Roboto Mono"/>
