@@ -5,6 +5,7 @@ import lombok.SneakyThrows;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.*;
 
 @Data
 public class NoteGUI {
@@ -16,9 +17,11 @@ public class NoteGUI {
     private JTextPane textPane;
     private JScrollPane scrollPane;
     private JPanel seedPanel;
+    private JFileChooser fileChooser;
 
     private int seed;
     private Dimension preferredSize;
+    private File selectedFile;
 
     private static int DEFAULT_SEED = 50;
     private static Dimension PREFERRED_SIZE = new Dimension(800, 600);
@@ -73,5 +76,33 @@ public class NoteGUI {
         encryptedTextPane.setKey(String.valueOf(seed));
 
         textPane = encryptedTextPane;
+    }
+
+    @SneakyThrows
+    private void saveToFile(File file) {
+        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file));
+        bufferedWriter.write(textPane.getText());
+        bufferedWriter.close();
+    }
+
+    private void save() {
+        if(selectedFile == null) {
+            selectedFile = saveAs();
+        }
+        else {
+            saveToFile(selectedFile);
+        }
+    }
+
+    @SneakyThrows
+    private File saveAs() {
+        int result = fileChooser.showSaveDialog(null);
+
+        if (result == JFileChooser.APPROVE_OPTION) {
+            File outFile = fileChooser.getSelectedFile();
+            saveToFile(outFile);
+            return outFile;
+        }
+        return null;
     }
 }
