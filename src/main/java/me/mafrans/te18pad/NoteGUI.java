@@ -2,6 +2,7 @@ package me.mafrans.te18pad;
 
 import lombok.Data;
 import lombok.SneakyThrows;
+import org.apache.commons.io.FileUtils;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileSystemView;
@@ -70,6 +71,9 @@ public class NoteGUI {
         JMenuItem openItem = new JMenuItem("Open (O)");
         openItem.setMnemonic(KeyEvent.VK_O);
         openItem.setAccelerator(KeyStroke.getKeyStroke("control O"));
+        openItem.addActionListener((event) -> {
+            open();
+        });
         menu.add(openItem);
 
         menuBar.add(menu);
@@ -117,9 +121,7 @@ public class NoteGUI {
 
     @SneakyThrows
     private void saveToFile(File file) {
-        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file));
-        bufferedWriter.write(textPane.getText());
-        bufferedWriter.close();
+        FileUtils.writeStringToFile(file, textPane.getText(), "UTF-8");
     }
 
     private void save() {
@@ -141,5 +143,20 @@ public class NoteGUI {
             return outFile;
         }
         return null;
+    }
+
+    @SneakyThrows
+    private String readFile(File file) {
+        return FileUtils.readFileToString(file, "UTF-8");
+    }
+
+    @SneakyThrows
+    private void open() {
+        int result = fileChooser.showOpenDialog(null);
+
+        if (result == JFileChooser.APPROVE_OPTION) {
+            File file = fileChooser.getSelectedFile();
+            ((EncryptedTextPane)textPane).decrypt(readFile(file));
+        }
     }
 }
