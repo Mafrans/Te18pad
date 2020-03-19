@@ -29,9 +29,11 @@ public class EncryptedTextPane extends JTextPane {
         addKeyListener(new KeyListener() {
             @Override
             public void keyTyped(KeyEvent e) {
-                if(e.getKeyChar() == '\b' && text.length() > 0) {
-                    text = text.substring(0, text.length() - 1);
-                    encrypt();
+                if(e.getKeyChar() == '\b') {
+                    if(text.length() > 0) {
+                        text = text.substring(0, text.length() - 1);
+                        encrypt();
+                    }
                     return;
                 }
 
@@ -52,7 +54,7 @@ public class EncryptedTextPane extends JTextPane {
     }
 
     @SneakyThrows
-    public void encrypt() {
+    public byte[] getEncrypted() {
         byte[] keyBytes = new byte[8];
         System.arraycopy(this.key.getBytes(), 0, keyBytes, 0, this.key.getBytes().length);
 
@@ -60,13 +62,15 @@ public class EncryptedTextPane extends JTextPane {
         Cipher cipher = Cipher.getInstance(algorithm);
 
         cipher.init(Cipher.ENCRYPT_MODE, keyspec);
-        byte[] encrypted = cipher.doFinal(text.getBytes());
+        return cipher.doFinal(text.getBytes());
+    }
 
-        this.setText(new String(encrypted));
+    public void encrypt() {
+        this.setText(new String(getEncrypted()));
     }
 
     @SneakyThrows
-    public void decrypt(String encrypted) {
+    public void decrypt(byte[] encrypted) {
         byte[] keyBytes = new byte[8];
         System.arraycopy(this.key.getBytes(), 0, keyBytes, 0, this.key.getBytes().length);
 
@@ -74,9 +78,9 @@ public class EncryptedTextPane extends JTextPane {
         Cipher cipher = Cipher.getInstance(algorithm);
 
         cipher.init(Cipher.DECRYPT_MODE, keyspec);
-        byte[] decrypted = cipher.doFinal(text.getBytes());
+        byte[] decrypted = cipher.doFinal(encrypted);
 
-        this.setText(new String(decrypted));
+        this.setInternalText(new String(decrypted));
     }
 
     public void setKey(String key) {
@@ -86,5 +90,10 @@ public class EncryptedTextPane extends JTextPane {
 
     public String getInternalText() {
         return text;
+    }
+
+    public void setInternalText(String string) {
+        this.text = string;
+        encrypt();
     }
 }

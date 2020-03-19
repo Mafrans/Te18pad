@@ -121,7 +121,7 @@ public class NoteGUI {
 
     @SneakyThrows
     private void saveToFile(File file) {
-        FileUtils.writeStringToFile(file, textPane.getText(), "UTF-8");
+        FileUtils.writeByteArrayToFile(file, ((EncryptedTextPane)textPane).getEncrypted());
     }
 
     private void save() {
@@ -146,8 +146,8 @@ public class NoteGUI {
     }
 
     @SneakyThrows
-    private String readFile(File file) {
-        return FileUtils.readFileToString(file, "UTF-8");
+    private byte[] readFile(File file) {
+        return FileUtils.readFileToByteArray(file);
     }
 
     @SneakyThrows
