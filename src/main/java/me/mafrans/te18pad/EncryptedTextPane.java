@@ -16,7 +16,6 @@ public class EncryptedTextPane extends JTextPane {
     @Getter @Setter
     private String algorithm = "DES";
 
-    @Getter
     private String text = "";
 
     private String key;
@@ -83,5 +82,9 @@ public class EncryptedTextPane extends JTextPane {
     public void setKey(String key) {
         this.key = key;
         encrypt();
+    }
+
+    public String getInternalText() {
+        return text;
     }
 }
