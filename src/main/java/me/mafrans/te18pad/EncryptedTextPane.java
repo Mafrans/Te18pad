@@ -66,6 +66,20 @@ public class EncryptedTextPane extends JTextPane {
         this.setText(new String(encrypted));
     }
 
+    @SneakyThrows
+    public void decrypt(String encrypted) {
+        byte[] keyBytes = new byte[8];
+        System.arraycopy(this.key.getBytes(), 0, keyBytes, 0, this.key.getBytes().length);
+
+        SecretKeySpec keyspec = new SecretKeySpec(keyBytes, algorithm);
+        Cipher cipher = Cipher.getInstance(algorithm);
+
+        cipher.init(Cipher.DECRYPT_MODE, keyspec);
+        byte[] decrypted = cipher.doFinal(text.getBytes());
+
+        this.setText(new String(decrypted));
+    }
+
     public void setKey(String key) {
         this.key = key;
         encrypt();
