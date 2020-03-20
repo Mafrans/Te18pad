@@ -13,8 +13,9 @@ import java.io.*;
 
 @Data
 public class NoteGUI {
+    private static int DEFAULT_SEED = 50;
+    private static Dimension PREFERRED_SIZE = new Dimension(800, 600);
     private JFrame frame;
-
     private JPanel mainPanel;
     private JSpinner seedSpinner;
     private JSlider seedSlider;
@@ -22,13 +23,9 @@ public class NoteGUI {
     private JScrollPane scrollPane;
     private JPanel seedPanel;
     private JFileChooser fileChooser;
-
     private int seed;
     private Dimension preferredSize;
     private File selectedFile;
-
-    private static int DEFAULT_SEED = 50;
-    private static Dimension PREFERRED_SIZE = new Dimension(800, 600);
 
     @SneakyThrows
     public NoteGUI(String title) {
